@@ -23,7 +23,7 @@ def print_menu():
     # your code goes here!
     print ("The menu includes the below items:")
     for item in menu:
-        print (" - ", item, "=", menu[item], "KD")
+        print (" - %s = %.3f KD" % (item, menu[item]))
 
 
 
@@ -31,20 +31,20 @@ def print_originals():
     """
     Print the original flavor cupcakes.
     """
-    print("Our original flavor cupcakes (KD %s each):" % original_price)
+    print("Our original flavor cupcakes (KD %.3f each):" % original_price)
     # your code goes here!
     for item in original_flavors:
-        print (" - ", item)
+        print (" - %s" % (item))
 
 
 def print_signatures():
     """
     Print the signature flavor cupcakes.
     """
-    print("Our signature flavor cupcake (KD %s each):" % signature_price)
+    print("Our signature flavor cupcake (KD %.3f each):" % signature_price)
     # your code goes here!
     for item in signature_flavors:
-        print (" - ", item)
+        print (" - %s" % (item))
 
 
 def is_valid_order(order):
@@ -76,12 +76,12 @@ def get_order():
             return order_list
             break
         elif order == "original cupcake" or order == "signature cupcake":
-            print ("Please write in a flavor of cupcake")
+            print ("Please specify the flavor of cupcake, for example 'Vanilla'.")
         else:
             if is_valid_order(order) == True:
                 order_list.append(order)
             else:
-                print (order + " not on menu, please order something else.")
+                print ("%s is not on menu, please order something else." % (order))
 
 
 def accept_credit_card(total):
@@ -92,7 +92,7 @@ def accept_credit_card(total):
     if total >= 5:
         print ("This order is eligible for credit card payment.")
     else:
-        print ("This order is NOT eligible for credit card payment and must be paid in cash.")
+        print ("This order is NOT eligible for credit card payment as it is less than 5 KD. Please pay in cash.")
 
 def get_total_price(order_list):
     """
@@ -118,9 +118,17 @@ def print_order(order_list):
     print("Your order is: ")
     # your code goes here!
     for item in order_list:
-        print (item)
+        if item in menu:
+            #itemPrice = " = " + str(menu[item]) + " KD"
+            itemPrice = " = %.3f KD" % (menu[item])
+        elif item in original_flavors:
+            itemPrice = " cupcake = %.3f KD" % menu["original cupcake"]
+        elif item in signature_flavors:
+            itemPrice =  " cupcake = %.3f KD" % menu["signature cupcake"]
+
+        print (str(item) + itemPrice)
     total = get_total_price(order_list)
-    print ("The price of the order is " + str(total) + " KD")
+    print ("The price of the order is %.3f KD." % total)
     accept_credit_card(total)
     print ("Thank you for ordering at CakeCups.")
 
